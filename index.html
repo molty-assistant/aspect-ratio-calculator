@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aspect Ratio Calculator — Free online tool for images &amp; video</title>
+<meta name="description" content="Free aspect ratio calculator for images, video, and displays. Enter dimensions to find the ratio, resize while maintaining proportions, or pick a preset like 16:9, 4:3, 3:2 to see common resolutions.">
+<meta name="keywords" content="aspect ratio calculator, image ratio calculator, video aspect ratio, screen ratio, 16:9, 4:3, resize calculator, resolution calculator">
+<link rel="canonical" href="https://molty-assistant.github.io/aspect-ratio-calculator/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Aspect Ratio Calculator — Free online tool for images & video">
+<meta property="og:description" content="Calculate aspect ratios for images, video, and displays. Enter dimensions to find the ratio, or pick a common preset to see matching resolutions.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://molty-assistant.github.io/aspect-ratio-calculator/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Micro Apps">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aspect Ratio Calculator — Free online tool for images & video">
+<meta name="twitter:description" content="Calculate aspect ratios for images, video, and displays. Enter dimensions, find ratios, resize proportionally, and explore common resolutions.">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Aspect Ratio Calculator",
+  "description": "Free online aspect ratio calculator for images, video, and displays. Calculate ratios, resize proportionally, and explore common resolutions.",
+  "url": "https://molty-assistant.github.io/aspect-ratio-calculator/",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Micro Apps",
+    "url": "https://molty-assistant.github.io/micro-apps-site/"
+  }
+}
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0f;--surface:#131320;--surface2:#1a1a2e;--border:#2a2a3e;--accent:#7c3aed;--accent-hover:#6d28d9;--accent-glow:rgba(124,58,237,.25);--text:#e4e4e7;--text-dim:#a1a1aa;--text-muted:#71717a;--radius:12px;--radius-sm:8px}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* Layout */
+.container{max-width:800px;margin:0 auto;padding:24px 16px 48px}
+header{text-align:center;margin-bottom:32px}
+header h1{font-size:1.75rem;font-weight:700;margin-bottom:4px;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+header .subtitle{color:var(--text-dim);font-size:.95rem}
+
+/* SEO Intro */
+.intro{color:var(--text-muted);font-size:.875rem;text-align:center;max-width:560px;margin:0 auto 28px;line-height:1.7}
+
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px}
+.card-title{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:14px;font-weight:600}
+
+/* Dimension Inputs */
+.dim-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.dim-input-group{flex:1;min-width:120px}
+.dim-input-group label{display:block;font-size:.75rem;color:var(--text-dim);margin-bottom:4px;font-weight:500}
+.dim-input-group input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;color:var(--text);font-size:1.1rem;font-family:inherit;transition:border-color .2s,box-shadow .2s;outline:none}
+.dim-input-group input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.dim-sep{font-size:1.4rem;color:var(--text-muted);margin-top:18px;font-weight:300}
+
+/* Ratio Result */
+.ratio-result{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.ratio-badge{background:linear-gradient(135deg,var(--accent),#9333ea);color:#fff;font-size:1.5rem;font-weight:700;padding:8px 24px;border-radius:var(--radius);letter-spacing:.02em;min-width:80px;text-align:center}
+.ratio-decimal{color:var(--text-dim);font-size:.875rem}
+.btn-copy{background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);padding:6px 14px;border-radius:var(--radius-sm);cursor:pointer;font-size:.8rem;font-family:inherit;transition:all .2s}
+.btn-copy:hover{border-color:var(--accent);color:var(--text)}
+.btn-copy.copied{border-color:#22c55e;color:#22c55e}
+
+/* Lock Toggle */
+.lock-row{display:flex;align-items:center;gap:10px;margin-top:14px;justify-content:center}
+.lock-toggle{position:relative;width:44px;height:24px;cursor:pointer}
+.lock-toggle input{opacity:0;width:0;height:0}
+.lock-toggle .slider{position:absolute;inset:0;background:var(--surface2);border:1px solid var(--border);border-radius:12px;transition:all .25s}
+.lock-toggle .slider::before{content:"";position:absolute;width:18px;height:18px;left:2px;top:2px;background:var(--text-dim);border-radius:50%;transition:all .25s}
+.lock-toggle input:checked+.slider{background:var(--accent);border-color:var(--accent)}
+.lock-toggle input:checked+.slider::before{transform:translateX(20px);background:#fff}
+.lock-label{font-size:.85rem;color:var(--text-dim);user-select:none;cursor:pointer;display:flex;align-items:center;gap:6px}
+.lock-label .lock-icon{font-size:1rem}
+
+/* Visual Preview */
+.preview-container{display:flex;justify-content:center;align-items:center;padding:24px 0}
+.preview-box{border:2px solid var(--accent);border-radius:6px;background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(124,58,237,.02));position:relative;transition:width .35s ease,height .35s ease;display:flex;align-items:center;justify-content:center}
+.preview-box .preview-label{font-size:.75rem;color:var(--text-muted);white-space:nowrap}
+
+/* Presets */
+.presets-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px}
+.preset-btn{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 6px;color:var(--text);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;text-align:center}
+.preset-btn:hover{border-color:var(--accent);background:rgba(124,58,237,.1)}
+.preset-btn.active{border-color:var(--accent);background:rgba(124,58,237,.15);box-shadow:0 0 0 2px var(--accent-glow)}
+.preset-btn .preset-name{display:block;font-size:.65rem;color:var(--text-muted);margin-top:2px;font-weight:400}
+
+/* Resolution Table */
+.res-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.res-table th{text-align:left;color:var(--text-muted);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--border);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
+.res-table td{padding:8px 10px;border-bottom:1px solid rgba(42,42,62,.5);color:var(--text-dim)}
+.res-table tr:last-child td{border-bottom:none}
+.res-table tr:hover td{color:var(--text);background:rgba(124,58,237,.04)}
+
+/* Resize Calculator */
+.resize-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.resize-grid .full-width{grid-column:1/-1}
+.resize-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.2rem;padding:8px 0;grid-column:1/-1}
+.resize-result{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;text-align:center;grid-column:1/-1;font-size:1rem;color:var(--text)}
+.resize-result strong{color:var(--accent)}
+
+/* Photography Note */
+.photo-note{font-size:.8rem;color:var(--text-muted);line-height:1.6;margin-top:4px}
+.photo-note strong{color:var(--text-dim)}
+
+/* Footer */
+footer{text-align:center;padding:32px 16px 24px;color:var(--text-muted);font-size:.8rem;border-top:1px solid var(--border)}
+footer a{color:var(--accent);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* Responsive */
+@media(max-width:480px){
+  .dim-row{gap:8px}
+  .dim-sep{margin-top:12px}
+  .ratio-badge{font-size:1.25rem;padding:6px 18px}
+  .container{padding:16px 12px 40px}
+  header h1{font-size:1.4rem}
+  .resize-grid{grid-template-columns:1fr}
+  .resize-grid .full-width{grid-column:1}
+  .resize-arrow{grid-column:1}
+  .resize-result{grid-column:1}
+}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.card{animation:fadeIn .4s ease both}
+.card:nth-child(2){animation-delay:.05s}
+.card:nth-child(3){animation-delay:.1s}
+.card:nth-child(4){animation-delay:.15s}
+.card:nth-child(5){animation-delay:.2s}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>📐 Aspect Ratio Calculator</h1>
+    <p class="subtitle">Free online tool for images, video &amp; displays</p>
+  </header>
+
+  <p class="intro">Calculate aspect ratios for images, video, and displays. Enter your dimensions to find the ratio, or pick a common ratio to see matching resolutions.</p>
+
+  <!-- Dimension Input -->
+  <div class="card">
+    <div class="card-title">Dimensions</div>
+    <div class="dim-row">
+      <div class="dim-input-group">
+        <label for="width">Width (px)</label>
+        <input type="number" id="width" min="1" placeholder="1920" inputmode="numeric" autocomplete="off">
+      </div>
+      <span class="dim-sep">×</span>
+      <div class="dim-input-group">
+        <label for="height">Height (px)</label>
+        <input type="number" id="height" min="1" placeholder="1080" inputmode="numeric" autocomplete="off">
+      </div>
+    </div>
+    <div class="ratio-result" id="ratioResult" style="display:none">
+      <div class="ratio-badge" id="ratioBadge">—</div>
+      <span class="ratio-decimal" id="ratioDecimal"></span>
+      <button class="btn-copy" id="btnCopy" title="Copy ratio to clipboard">Copy</button>
+    </div>
+    <div class="lock-row">
+      <label class="lock-toggle" title="Lock ratio — changing one dimension auto-adjusts the other">
+        <input type="checkbox" id="lockRatio">
+        <span class="slider"></span>
+      </label>
+      <label class="lock-label" for="lockRatio">
+        <span class="lock-icon" id="lockIcon">🔓</span> Lock ratio
+      </label>
+    </div>
+  </div>
+
+  <!-- Visual Preview -->
+  <div class="card">
+    <div class="card-title">Visual Preview</div>
+    <div class="preview-container">
+      <div class="preview-box" id="previewBox">
+        <span class="preview-label" id="previewLabel">Enter dimensions</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Presets -->
+  <div class="card">
+    <div class="card-title">Common Ratio Presets</div>
+    <div class="presets-grid" id="presetsGrid"></div>
+    <p class="photo-note" style="margin-top:14px">
+      📷 <strong>Photography:</strong> Full-frame &amp; APS-C sensors use <strong>3:2</strong>. Micro Four Thirds uses <strong>4:3</strong>. Medium format is typically <strong>4:3</strong> or <strong>3:2</strong>. Smartphones vary between <strong>4:3</strong> (photo) and <strong>16:9</strong> (video).
+    </p>
+  </div>
+
+  <!-- Resolution Table -->
+  <div class="card" id="resCard" style="display:none">
+    <div class="card-title" id="resTitle">Common Resolutions</div>
+    <table class="res-table">
+      <thead>
+        <tr><th>Name</th><th>Resolution</th><th>Megapixels</th></tr>
+      </thead>
+      <tbody id="resBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Resize Calculator -->
+  <div class="card">
+    <div class="card-title">Resize Calculator</div>
+    <div class="resize-grid">
+      <div class="dim-input-group">
+        <label for="srcW">Current Width</label>
+        <input type="number" id="srcW" min="1" placeholder="1920" inputmode="numeric" autocomplete="off">
+      </div>
+      <div class="dim-input-group">
+        <label for="srcH">Current Height</label>
+        <input type="number" id="srcH" min="1" placeholder="1080" inputmode="numeric" autocomplete="off">
+      </div>
+      <div class="resize-arrow">↓ Resize to ↓</div>
+      <div class="dim-input-group">
+        <label for="tgtW">Target Width</label>
+        <input type="number" id="tgtW" min="1" placeholder="1280" inputmode="numeric" autocomplete="off">
+      </div>
+      <div class="dim-input-group">
+        <label for="tgtH">Target Height</label>
+        <input type="number" id="tgtH" min="1" placeholder="auto" inputmode="numeric" autocomplete="off">
+      </div>
+      <div class="resize-result" id="resizeResult" style="display:none">
+        Resized: <strong id="resizeOut">—</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Aspect Ratio Calculator — Part of <a href="https://molty-assistant.github.io/micro-apps-site/">Micro Apps</a>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // ── Data ──
+  const PRESETS = [
+    { r:[16,9],  label:'16:9',  name:'Widescreen',  resolutions:[
+      {name:'HD (720p)',w:1280,h:720},{name:'Full HD (1080p)',w:1920,h:1080},{name:'QHD (1440p)',w:2560,h:1440},{name:'4K UHD',w:3840,h:2160},{name:'5K',w:5120,h:2880},{name:'8K UHD',w:7680,h:4320}
+    ]},
+    { r:[4,3],   label:'4:3',   name:'Classic',     resolutions:[
+      {name:'VGA',w:640,h:480},{name:'SVGA',w:800,h:600},{name:'XGA',w:1024,h:768},{name:'SXGA+',w:1400,h:1050},{name:'UXGA',w:1600,h:1200},{name:'QXGA',w:2048,h:1536}
+    ]},
+    { r:[1,1],   label:'1:1',   name:'Square',      resolutions:[
+      {name:'Instagram',w:1080,h:1080},{name:'Profile Pic',w:400,h:400},{name:'Medium',w:2048,h:2048},{name:'Large',w:4096,h:4096}
+    ]},
+    { r:[3,2],   label:'3:2',   name:'Full-frame',  resolutions:[
+      {name:'6×4 Print',w:1800,h:1200},{name:'6 MP',w:3000,h:2000},{name:'12 MP',w:4256,h:2832},{name:'24 MP',w:6000,h:4000},{name:'36 MP',w:7360,h:4912},{name:'45 MP',w:8192,h:5464}
+    ]},
+    { r:[21,9],  label:'21:9',  name:'Ultrawide',   resolutions:[
+      {name:'UWHD',w:2560,h:1080},{name:'UWQHD',w:3440,h:1440},{name:'UW 4K',w:5120,h:2160}
+    ]},
+    { r:[9,16],  label:'9:16',  name:'Vertical',    resolutions:[
+      {name:'Story 720p',w:720,h:1280},{name:'Story 1080p',w:1080,h:1920},{name:'TikTok',w:1080,h:1920},{name:'Story 1440p',w:1440,h:2560}
+    ]},
+    { r:[2,3],   label:'2:3',   name:'Portrait',    resolutions:[
+      {name:'4×6 Print',w:1200,h:1800},{name:'Medium',w:2000,h:3000},{name:'Large',w:4000,h:6000}
+    ]},
+    { r:[5,4],   label:'5:4',   name:'Large format', resolutions:[
+      {name:'SXGA',w:1280,h:1024},{name:'5×4 Print',w:2500,h:2000},{name:'Medium',w:3750,h:3000}
+    ]}
+  ];
+
+  // ── DOM ──
+  const $=s=>document.querySelector(s);
+  const widthEl=$('#width'), heightEl=$('#height');
+  const ratioBadge=$('#ratioBadge'), ratioDecimal=$('#ratioDecimal');
+  const ratioResult=$('#ratioResult'), btnCopy=$('#btnCopy');
+  const lockRatio=$('#lockRatio'), lockIcon=$('#lockIcon');
+  const previewBox=$('#previewBox'), previewLabel=$('#previewLabel');
+  const presetsGrid=$('#presetsGrid');
+  const resCard=$('#resCard'), resTitle=$('#resTitle'), resBody=$('#resBody');
+  const srcW=$('#srcW'), srcH=$('#srcH'), tgtW=$('#tgtW'), tgtH=$('#tgtH');
+  const resizeResult=$('#resizeResult'), resizeOut=$('#resizeOut');
+
+  let currentRatio = null; // [w, h] simplified
+  let activePreset = null;
+  let lastChanged = 'width'; // track which dimension changed last
+
+  // ── Utilities ──
+  function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}
+  function simplify(w,h){const g=gcd(w,h);return[w/g,h/g]}
+
+  // ── LocalStorage ──
+  function save(){
+    try{
+      localStorage.setItem('arc_data',JSON.stringify({
+        w:widthEl.value,h:heightEl.value,lock:lockRatio.checked,
+        srcW:srcW.value,srcH:srcH.value,tgtW:tgtW.value,tgtH:tgtH.value
+      }));
+    }catch(e){}
+  }
+  function load(){
+    try{
+      const d=JSON.parse(localStorage.getItem('arc_data'));
+      if(!d)return;
+      if(d.w)widthEl.value=d.w;
+      if(d.h)heightEl.value=d.h;
+      if(d.lock)lockRatio.checked=true;
+      if(d.srcW)srcW.value=d.srcW;
+      if(d.srcH)srcH.value=d.srcH;
+      if(d.tgtW)tgtW.value=d.tgtW;
+      if(d.tgtH)tgtH.value=d.tgtH;
+    }catch(e){}
+  }
+
+  // ── Calculate Ratio ──
+  function calculate(){
+    const w=parseInt(widthEl.value), h=parseInt(heightEl.value);
+    if(!w||!h||w<1||h<1){
+      ratioResult.style.display='none';
+      updatePreview(null);
+      return;
+    }
+    const [rw,rh]=simplify(w,h);
+    currentRatio=[rw,rh];
+    ratioBadge.textContent=rw+':'+rh;
+    ratioDecimal.textContent='('+( w/h).toFixed(4)+')';
+    ratioResult.style.display='flex';
+    updatePreview(w/h);
+    highlightMatchingPreset(rw,rh);
+    save();
+  }
+
+  // ── Lock Ratio Logic ──
+  function onWidthChange(){
+    lastChanged='width';
+    if(lockRatio.checked && currentRatio){
+      const w=parseInt(widthEl.value);
+      if(w>0){
+        heightEl.value=Math.round(w*currentRatio[1]/currentRatio[0]);
+      }
+    }
+    calculate();
+  }
+  function onHeightChange(){
+    lastChanged='height';
+    if(lockRatio.checked && currentRatio){
+      const h=parseInt(heightEl.value);
+      if(h>0){
+        widthEl.value=Math.round(h*currentRatio[0]/currentRatio[1]);
+      }
+    }
+    calculate();
+  }
+
+  widthEl.addEventListener('input',onWidthChange);
+  heightEl.addEventListener('input',onHeightChange);
+  widthEl.addEventListener('keydown',e=>{if(e.key==='Enter')heightEl.focus()});
+  heightEl.addEventListener('keydown',e=>{if(e.key==='Enter')widthEl.blur()});
+
+  lockRatio.addEventListener('change',()=>{
+    lockIcon.textContent=lockRatio.checked?'🔒':'🔓';
+    save();
+  });
+
+  // ── Copy ──
+  btnCopy.addEventListener('click',()=>{
+    if(!currentRatio)return;
+    const text=currentRatio[0]+':'+currentRatio[1];
+    navigator.clipboard.writeText(text).then(()=>{
+      btnCopy.textContent='Copied!';
+      btnCopy.classList.add('copied');
+      setTimeout(()=>{btnCopy.textContent='Copy';btnCopy.classList.remove('copied')},1500);
+    });
+  });
+
+  // ── Preview ──
+  function updatePreview(aspect){
+    if(!aspect||isNaN(aspect)){
+      previewBox.style.width='120px';
+      previewBox.style.height='80px';
+      previewLabel.textContent='Enter dimensions';
+      return;
+    }
+    const maxW=280, maxH=180;
+    let w,h;
+    if(aspect>=1){
+      w=maxW;
+      h=Math.round(maxW/aspect);
+      if(h>maxH){h=maxH;w=Math.round(maxH*aspect)}
+    }else{
+      h=maxH;
+      w=Math.round(maxH*aspect);
+      if(w>maxW){w=maxW;h=Math.round(maxW/aspect)}
+    }
+    w=Math.max(w,40);
+    h=Math.max(h,40);
+    previewBox.style.width=w+'px';
+    previewBox.style.height=h+'px';
+    const iw=parseInt(widthEl.value)||'?', ih=parseInt(heightEl.value)||'?';
+    previewLabel.textContent=iw+' × '+ih;
+  }
+
+  // ── Presets ──
+  function highlightMatchingPreset(rw,rh){
+    document.querySelectorAll('.preset-btn').forEach(btn=>{
+      const pr=btn.dataset.ratio.split(':').map(Number);
+      btn.classList.toggle('active',pr[0]===rw&&pr[1]===rh);
+    });
+    // Show resolution table if matching preset
+    const preset=PRESETS.find(p=>p.r[0]===rw&&p.r[1]===rh);
+    if(preset){
+      showResolutions(preset);
+    }
+  }
+
+  function showResolutions(preset){
+    activePreset=preset;
+    resTitle.textContent=preset.label+' — '+preset.name+' Resolutions';
+    resBody.innerHTML='';
+    preset.resolutions.forEach(r=>{
+      const mp=((r.w*r.h)/1e6).toFixed(1);
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td>'+r.name+'</td><td>'+r.w+' × '+r.h+'</td><td>'+mp+' MP</td>';
+      tr.style.cursor='pointer';
+      tr.addEventListener('click',()=>{
+        widthEl.value=r.w;
+        heightEl.value=r.h;
+        calculate();
+      });
+      resBody.appendChild(tr);
+    });
+    resCard.style.display='block';
+  }
+
+  PRESETS.forEach(p=>{
+    const btn=document.createElement('button');
+    btn.className='preset-btn';
+    btn.dataset.ratio=p.r[0]+':'+p.r[1];
+    btn.innerHTML=p.label+'<span class="preset-name">'+p.name+'</span>';
+    btn.addEventListener('click',()=>{
+      // Set dimensions to the first common resolution
+      const firstRes=p.resolutions[0];
+      widthEl.value=firstRes.w;
+      heightEl.value=firstRes.h;
+      currentRatio=[p.r[0],p.r[1]];
+      calculate();
+      showResolutions(p);
+    });
+    presetsGrid.appendChild(btn);
+  });
+
+  // ── Resize Calculator ──
+  function calcResize(){
+    const sw=parseInt(srcW.value), sh=parseInt(srcH.value);
+    const tw=parseInt(tgtW.value), th=parseInt(tgtH.value);
+    if(!sw||!sh||sw<1||sh<1){
+      resizeResult.style.display='none';
+      return;
+    }
+    const ratio=sw/sh;
+    if(tw&&tw>0&&!th){
+      const newH=Math.round(tw/ratio);
+      resizeOut.textContent=tw+' × '+newH;
+      resizeResult.style.display='block';
+    }else if(th&&th>0&&!tw){
+      const newW=Math.round(th*ratio);
+      resizeOut.textContent=newW+' × '+th;
+      resizeResult.style.display='block';
+    }else if(tw&&th){
+      // Both filled — show what it would be for each
+      const newH=Math.round(tw/ratio);
+      const newW=Math.round(th*ratio);
+      resizeOut.textContent=tw+' × '+newH+' (by width) or '+newW+' × '+th+' (by height)';
+      resizeResult.style.display='block';
+    }else{
+      resizeResult.style.display='none';
+    }
+    save();
+  }
+
+  [srcW,srcH,tgtW,tgtH].forEach(el=>el.addEventListener('input',calcResize));
+
+  // ── Init ──
+  load();
+  if(widthEl.value&&heightEl.value)calculate();
+  if(lockRatio.checked)lockIcon.textContent='🔒';
+  calcResize();
+
+})();
+</script>
+
+</body>
+</html>
